@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -40,7 +42,7 @@ func main() {
 }
 
 func exibirIntroducao() {
-	nome := "Douglas"
+	nome := "Eduardo"
 	versão := 1.1
 	fmt.Println("Olá, sr.", nome)
 	fmt.Println("Este programa está na versão", versão)
@@ -63,8 +65,6 @@ func lerComando() int {
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-
-	/* sites := []string{"https://www.alura.com.br/", "https://random-status-code.herokuapp.com/", "https://www.caelum.com.br"} */
 
 	sites := lerSites()
 
@@ -100,14 +100,25 @@ func lerSites() []string {
 
 	var sites []string
 
-	/* arquivo, err := os.Open("sites_monitoramento.txt")*/
-	arquivo, err := ioutil.ReadFile("sites_monitoramento.txt")
-
+	arquivo, err := os.Open("sites_monitoramento.txt")
 	if err != nil {
 		fmt.Println("Ocorreu um erro", err)
-
 	}
 
-	fmt.Println(string(arquivo))
+	leitor := bufio.NewReader(arquivo)
+	for {
+		linha, err := leitor.ReadString('\n')
+		linha = strings.TrimSpace(linha)
+		fmt.Println(linha)
+
+		sites = append(sites, linha)
+
+		if err == io.EOF {
+			break
+		}
+	}
+
+	fmt.Println(sites)
+
 	return sites
 }
