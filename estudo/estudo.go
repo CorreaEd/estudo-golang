@@ -16,7 +16,7 @@ const delay = 5
 func main() {
 
 	exibirIntroducao()
-	lerSites()
+
 	for {
 
 		exibirMenu()
@@ -118,7 +118,7 @@ func lerSites() []string {
 		}
 	}
 
-	fmt.Println(sites)
+	arquivo.Close()
 
 	return sites
 }
