@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
@@ -13,7 +14,7 @@ const delay = 5
 func main() {
 
 	exibirIntroducao()
-
+	lerSites()
 	for {
 
 		exibirMenu()
@@ -62,7 +63,10 @@ func lerComando() int {
 
 func iniciarMonitoramento() {
 	fmt.Println("Monitorando...")
-	sites := []string{"https://www.alura.com.br/", "https://random-status-code.herokuapp.com/", "https://www.caelum.com.br"}
+
+	/* sites := []string{"https://www.alura.com.br/", "https://random-status-code.herokuapp.com/", "https://www.caelum.com.br"} */
+
+	sites := lerSites()
 
 	for i := 0; i < monitoramentos; i++ {
 		for i, site := range sites {
@@ -78,7 +82,11 @@ func iniciarMonitoramento() {
 }
 
 func testaSites(site string) {
-	resp, _ := http.Get(site)
+	resp, err := http.Get(site)
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro:", err)
+	}
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Site", site, "foi carregado com sucesso!")
@@ -86,4 +94,20 @@ func testaSites(site string) {
 		fmt.Println("Site", site, "está com problemas. Status Code", resp.StatusCode)
 	}
 
+}
+
+func lerSites() []string {
+
+	var sites []string
+
+	/* arquivo, err := os.Open("sites_monitoramento.txt")*/
+	arquivo, err := ioutil.ReadFile("sites_monitoramento.txt")
+
+	if err != nil {
+		fmt.Println("Ocorreu um erro", err)
+
+	}
+
+	fmt.Println(string(arquivo))
+	return sites
 }
