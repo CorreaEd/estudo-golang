@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-
-	exibirIntroducao()
+	exibeNomes()
+	/* exibirIntroducao() */
 	for {
-		exibirMenu()
+		/* 	exibirMenu() */
 
 		comando := lerComando()
 
@@ -65,4 +65,9 @@ func iniciarMonitoramento() {
 		fmt.Println("Site", site, "está com problemas. Status Code", resp.StatusCode)
 	}
 
+}
+
+func exibeNomes() {
+	nomes := []string{"Douglas", "Daniel", "Denis"}
+	fmt.Println(nomes)
 }
