@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -71,7 +72,7 @@ func iniciarMonitoramento() {
 	for i := 0; i < monitoramentos; i++ {
 		for i, site := range sites {
 			fmt.Println("Testando site", i, ":", site)
-			testaSites(site)
+			testarSites(site)
 		}
 		time.Sleep(delay * time.Second)
 		fmt.Println("")
@@ -81,7 +82,7 @@ func iniciarMonitoramento() {
 
 }
 
-func testaSites(site string) {
+func testarSites(site string) {
 	resp, err := http.Get(site)
 
 	if err != nil {
@@ -90,8 +91,10 @@ func testaSites(site string) {
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Site", site, "foi carregado com sucesso!")
+		registrarLog(site, true)
 	} else {
 		fmt.Println("Site", site, "está com problemas. Status Code", resp.StatusCode)
+		registrarLog(site, false)
 	}
 
 }
@@ -121,4 +124,17 @@ func lerSites() []string {
 	arquivo.Close()
 
 	return sites
+}
+
+func registrarLog(site string, status bool) {
+
+	arquivo, err := os.OpenFile("logs.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05") + "-" + site + " - online: " + strconv.FormatBool(status) + "\n")
+
+	arquivo.Close()
 }
