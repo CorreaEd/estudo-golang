@@ -44,3 +44,12 @@
 30/03/2021 23:31:26-https://www.alura.com.br - online: true
 30/03/2021 23:31:26-https://www.caelum.com.br - online: true
 30/03/2021 23:31:27-https://www.casadocodigo.com.br - online: true
+31/03/2021 13:01:07-https://www.alura.com.br - online: true
+31/03/2021 13:01:07-https://www.caelum.com.br - online: true
+31/03/2021 13:01:08-https://www.casadocodigo.com.br - online: true
+31/03/2021 13:01:13-https://www.alura.com.br - online: true
+31/03/2021 13:01:13-https://www.caelum.com.br - online: true
+31/03/2021 13:01:14-https://www.casadocodigo.com.br - online: true
+31/03/2021 13:01:19-https://www.alura.com.br - online: true
+31/03/2021 13:01:19-https://www.caelum.com.br - online: true
+31/03/2021 13:01:20-https://www.casadocodigo.com.br - online: true
