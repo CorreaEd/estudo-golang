@@ -1,13 +1,9 @@
 package contas
 
-type Titular struct {
-	nome      string
-	CPF       string
-	profissao string
-}
+import "banco/clientes"
 
 type ContaCorrente struct {
-	Titular       string
+	Titular       clientes.Titular
 	NumeroAgencia int
 	NumeroConta   int
 	Saldo         float64
